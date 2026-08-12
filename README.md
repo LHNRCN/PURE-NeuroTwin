@@ -13,4 +13,4 @@ conda activate neurotwin_poc
 python neurotwin_poc
 ```
 
-![NeuroTwin Conceptual Diagram](diagram.png)
+<img width="855" height="1308" alt="diagram" src="https://github.com/user-attachments/assets/90992c05-dccc-4336-8f59-4e81b3e216c1" />
