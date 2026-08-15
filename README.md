@@ -1,17 +1,16 @@
+This repository contains the isolated Proof of Concept (PoC) for the NeuroTwin research framework. It models an adaptive virtual reality learning application using multimodal learner-state estimation to intelligently tailor educational interventions.
+
 # Used repositories:
 
 https://github.com/danijar/dreamerv3
 
 https://github.com/facebookresearch/jepa
 
-
-This repository contains the isolated Proof of Concept (PoC) for the NeuroTwin research framework. It models an adaptive virtual reality learning application using multimodal learner-state estimation to intelligently tailor educational interventions.
-
 ## Overview
 This pipeline bridges two state-of-the-art AI paradigms to simulate an intelligent XR tutor:
 *   **V-JEPA (Vision Joint-Embedding Predictive Architecture):** Extracts spatial-temporal behavioral embeddings directly from raw XR interaction videos.
 *   **DreamerV3 (World Model RL):** Simulates the decision-making engine that observes the extracted learner state and selects optimal interventions.
-# Command Line:
+# Command Line (To run locally):
 
 
 ```
