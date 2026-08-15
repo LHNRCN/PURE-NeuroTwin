@@ -4,7 +4,7 @@ import numpy as np
 import warnings
 warnings.filterwarnings("ignore", category=FutureWarning)
 
-# extracts V-JEPA latent tensor from the video (AI generated!!)
+# extracts V-JEPA latent tensor from the video (AI generated)
 def extract_jepa_features(video_filename):
     # 1. Read and resize 16 frames
     cap = cv2.VideoCapture(video_filename)
@@ -38,15 +38,26 @@ def progress_from_jepa(jepa_latent):
     else:
         return 0.0
 
+# decides the action (hint / simplify / continue) based on the current state of the learner
+def dreamer_action_policy(current_state):
+    progress, errors, hints, time = current_state
+    if errors > 2 and hints > 1: # repeated errors
+        return "Simplify"
+    elif time > 60 and progress < 50: # excessive time spent with low progress
+        return "Hint"
+    else:
+        return "Continue"
+
 #calculates the next state and reward based on the current state and action taken
-def step_environment(current_state, action, video_filename="interaction.mp4"):
+def step_environment(current_state, action, video_filename):
     progress, errors, hints, time = current_state
     reward = 0
     time += 15.0 # 15 seconds pass per action step
 
-    # extratcted output [1, 1568, 768], if parameter is entered it will change
+    # extratcted output from JEPA model
     jepa_latent = extract_jepa_features(video_filename) # Extract V-JEPA latent tensor from the video
 
+    # mimicing the XR data
     if action == "Continue":
         current_progress = progress_from_jepa(jepa_latent) # interperate the V-JEPA latent tensor to determine progress
         progress += current_progress
@@ -83,15 +94,10 @@ for i in range(number_of_iterations):
     print("Current Learner State   : ", current_state)
 
     #--- Selecting adaptation policy according to possible learner needs ---#
-    if current_state[1] > 2: #number of errors is larger than 2 -> repeated errors
-        action = "Simplify"
-    elif current_state[3] > 60 and current_state[0] < 50: # time is large and progress is small
-        action = "Hint"
-    else:
-        action = "Continue"
-        
+    action = dreamer_action_policy(current_state)
     print("  Selected Action       : ", action)
 
     #--- updated states and rewards---#
-    current_state, reward = step_environment(current_state, action) #calculated via the environment model
+    video_filename = "interaction.mp4" # Placeholder for the video filename
+    current_state, reward = step_environment(current_state, action, video_filename) #calculated via the environment model
     print("  Resulting Reward      : ", reward)
