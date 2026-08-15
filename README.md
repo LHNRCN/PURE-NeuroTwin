@@ -21,6 +21,7 @@ conda activate neurotwin_poc
 python neurotwin_poc.py
 ```
 
+## Execution
 | Functions | Corresponding action | 
 | -------- | -------- | 
 | extract_jepa_features  | JEPA latent representation   |
