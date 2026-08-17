@@ -31,6 +31,6 @@ python neurotwin_poc.py
 
 # Execution Process Diagram
 
-<img width="855" height="1308" alt="diagram" src="https://github.com/user-attachments/assets/0390a176-e177-4da8-96d0-442a35753e47" />
+<img width="855" height="1308" alt="Untitled" src="https://github.com/user-attachments/assets/a1e2c016-9963-4544-b72b-cdfc3a9cc695" />
 
 
