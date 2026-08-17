@@ -31,7 +31,7 @@ def extract_jepa_features(video_filename):
 
 #gives a discrete progress value (0.0 or 10.0) based on the V-JEPA latent tensor
 def progress_from_jepa(jepa_latent):
-    feature_activation = jepa_latent.mean().item() #AI suggested
+    feature_activation = jepa_latent.mean().item()
     
     if feature_activation > 0.0:
         return 10.0
@@ -57,7 +57,7 @@ def step_environment(current_state, action, video_filename):
     # extratcted output from JEPA model
     jepa_latent = extract_jepa_features(video_filename) # Extract V-JEPA latent tensor from the video
 
-    # mimicing the XR data
+    # mimicing the XR progress data
     if action == "Continue":
         current_progress = progress_from_jepa(jepa_latent) # interperate the V-JEPA latent tensor to determine progress
         progress += current_progress
@@ -79,7 +79,6 @@ def step_environment(current_state, action, video_filename):
     return new_state, reward
 
 # ----main part---- #
-
 print("--- NeuroTwin PoC (Isolated) ---")
 
 # State: [task_progress, number_of_errors, number_of_hints, time_on_task]
@@ -93,7 +92,7 @@ for i in range(number_of_iterations):
     #--- Current Learner State ---#
     print("Current Learner State   : ", current_state)
 
-    #--- Selecting adaptation policy according to possible learner needs ---#
+    #--- Selecting adaptation policy according to possible learner needs by predicting future states ---#
     action = dreamer_action_policy(current_state)
     print("  Selected Action       : ", action)
 
